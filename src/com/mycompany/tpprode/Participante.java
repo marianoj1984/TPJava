@@ -14,7 +14,7 @@ public class Participante {
         this.puntos = 0;
     }
 
-    Participante() {
+    public Participante() {
        this.idParticipante=0;
        this.nombre=null;
        this.listaPronos=new ListaPronosticos();
@@ -52,7 +52,7 @@ public class Participante {
     public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
-
+    
     @Override
     public String toString() {
         return "Participante{" + "idParticipante=" + idParticipante + ", nombre=" + nombre + ", listaPronos=" + listaPronos + ", puntos=" + puntos + '}';

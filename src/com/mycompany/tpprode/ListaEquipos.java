@@ -21,7 +21,7 @@ public class ListaEquipos {
     }
 
     public ListaEquipos() {
-        this.nombreArchivo="Equipos.Csv";
+        this.nombreArchivo="equipos.Csv";
         this.listaE=new ArrayList<Equipo>();
     }
 
@@ -34,7 +34,7 @@ public class ListaEquipos {
     }
 
     public List<Equipo> getListaE() {
-        return listaE;
+        return this.listaE;
     }
 
     public void setListaE(List<Equipo> listaE) {

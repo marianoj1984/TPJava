@@ -3,40 +3,47 @@ package com.mycompany.tpprode;
 import java.util.Random;
 
 public class PronosticoDeportivo {
-    private Participante[] participantes;
-    private Equipo[] equipos;
-    private Partido[] partidos;
+    private ListaParticipantes participantes;
+    private ListaEquipos equipos;
+    private ListaPartidos partidos;
+    private ListaPronosticos pronosticos;
 
-    public Partido[] getPartidos() {
-        return partidos;
-    }
-
-    public void setPartidos(Partido[] partidos) {
-        this.partidos = partidos;
-    }
-
-    public PronosticoDeportivo() {
-    }
-
-    public Participante[] getParticipantes() {
+    public ListaParticipantes getParticipantes() {
         return participantes;
     }
 
-    public void setParticipantes(Participante[] participantes) {
+    public void setParticipantes(ListaParticipantes participantes) {
         this.participantes = participantes;
     }
 
-    public Equipo[] getEquipos() {
+    public ListaEquipos getEquipos() {
         return equipos;
     }
 
-    public void setEquipos(Equipo[] equipos) {
+    public void setEquipos(ListaEquipos equipos) {
         this.equipos = equipos;
     }
+
+    public ListaPartidos getPartidos() {
+        return partidos;
+    }
+
+    public void setPartidos(ListaPartidos partidos) {
+        this.partidos = partidos;
+    }
+
+    public ListaPronosticos getPronosticos() {
+        return pronosticos;
+    }
+
+    public void setPronosticos(ListaPronosticos pronosticos) {
+        this.pronosticos = pronosticos;
+    }
     
-    public Equipo[] cargarEquipos() {
+    
+    public ListaEquipos cargarEquipos(String archi) {
         
-        String[] equipo_nombres = {
+        /*String[] equipo_nombres = {
         "Boca Juniors","River Plate","Racing Club",
         "Velez Sarsfield", "Rosario Central", "Huracan",
         "Belgrano", "Talleres", "Independiente", "Aldosivi",
@@ -49,20 +56,22 @@ public class PronosticoDeportivo {
         for (int i=0; i<cant_equipos; i++) {
             equipos[i] = new Equipo (equipo_nombres[i],"");
         }
-        return equipos;
+        return equipos;*/
+        this.equipos=new ListaEquipos(archi);
+        return this.equipos;
     }
     
     public String listarEquipos() {
         String res="";
-        for (Equipo equipo : this.getEquipos()) {
+        for (Equipo equipo : this.equipos.getListaE()) {
             res += equipo.toString()+"\n";
             
         }
         return res;
     }
     
-    public Participante[] cargarParticipantes() {
-        String[] nombres = 
+    public ListaParticipantes cargarParticipantes(String archi) {
+        /*String[] nombres = 
             {"Aimar Arias","Judith Jaen","Macarena Borras","Esther Portela",
             "Jamal Barba","Flora Melero","Gustavo Bueno","Liliana Mateu",
             "Lucia Roldan","Alonso Andreu"};
@@ -74,19 +83,21 @@ public class PronosticoDeportivo {
             p.setNombre(nombres[i]);
             participantes[i] = p;
         }
-        return participantes; 
+        return participantes; */
+        this.participantes=new ListaParticipantes(archi);
+        return this.participantes;    
     }
     
     public String listarParticipantes() {
         String res="";
-        for (Participante p : this.getParticipantes()) {
+        for (Participante p : this.participantes.getListaPart()) {
             res += p.toString()+"\n";
         }
         return res;
     }
     
-    public Partido[] cargarPartidos() {
-        Random rnd = new Random();
+    public ListaPartidos cargarPartidos(String archiPartido, String archiEquipo) {
+        /*Random rnd = new Random();
         Equipo eq1, eq2;
         int goles1, goles2;
         
@@ -105,20 +116,22 @@ public class PronosticoDeportivo {
             this.partidos[p_i] = p;
             p_i++;
         }
+        return this.partidos;*/
+        this.partidos=new ListaPartidos(archiPartido, archiEquipo);
         return this.partidos;
     }
     
     public String listarPartidos() {
         String res = "";
-        for (Partido p : this.getPartidos()) {
+        for (Partido p : this.partidos.getListaP()) {
             res += p.toString()+"\n";
         }
         return res;
     }
     
     // El participante apuesta a TODOS los partidos
-    public void cargarPronosticos() {
-        Random rnd = new Random();
+    public void cargarPronosticos(String archiPronostico, String archiEquipos, String archiPartido, String archiParticipante) {
+        /*Random rnd = new Random();
         // Recorrer la lista de Participantes
         for (int participante = 0; participante<this.getParticipantes().length; participante++) {
             // Crear un vector que contenga todos los pronosticos posibles (1 por cada partido)
@@ -154,18 +167,16 @@ public class PronosticoDeportivo {
             // Cuando terminé los pronósticos de cada partido
             // Asignarlos al participante
             this.participantes[participante].setPronosticos(prons);
-        }
+        }*/
+        this.pronosticos=new ListaPronosticos(archiPronostico, archiEquipos, archiPartido, archiParticipante);
+        this.pronosticos.cargarDeArchivo();
+        
     }
     
     public String listarPronosticos() {
         String res = "";
-        for (Participante p : this.getParticipantes()) {
-            res += "------------ PARTICIPANTE ------------\n"+
-                    p.toString()+"\n"+
-                   "- - - - - - PRONOSTICOS - - - - - - \n";
-            for (Pronosticos pron : p.getPronosticos()) {
-                res += pron.toString()+"\n";
-            }
+        for (Pronosticos p : this.pronosticos.getListaProno()) {
+            
             res += "- - - - - - - - - - - - - - - - - -\n";
         }
         return res;
