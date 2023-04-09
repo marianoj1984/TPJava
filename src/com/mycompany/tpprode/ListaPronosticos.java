@@ -77,11 +77,16 @@ public class ListaPronosticos {
       String datosPronostico;
       String vectorPronostico[];
       Pronosticos pronostico;
+      int fila=0;
        try{
            Scanner sc = new Scanner(new File(this.nombreArchivo));
            sc.useDelimiter("\n");
            while(sc.hasNext()){
                datosPronostico=sc.next();
+               fila++;
+               if(fila==1){
+                   continue;
+               }
                vectorPronostico=datosPronostico.split(",");
                //idPronistico   //id Participante   //idPartico     //idEquipo      //Resultado
                //Participante part = listaPart.getParticipante(Integer.parseInt(vectorPronostico[1]));

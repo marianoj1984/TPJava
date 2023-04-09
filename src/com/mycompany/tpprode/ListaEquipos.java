@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class ListaEquipos {
     private String nombreArchivo;
-    private List<Equipo> listaE;
+    private ArrayList<Equipo> listaE;
 
     public ListaEquipos(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
@@ -33,11 +33,11 @@ public class ListaEquipos {
         this.nombreArchivo = nombreArchivo;
     }
 
-    public List<Equipo> getListaE() {
+    public ArrayList<Equipo> getListaE() {
         return this.listaE;
     }
 
-    public void setListaE(List<Equipo> listaE) {
+    public void setListaE(ArrayList<Equipo> listaE) {
         this.listaE = listaE;
     }
     
@@ -56,7 +56,7 @@ public class ListaEquipos {
         // buscaba todavía.
         Equipo encontrado = null;
         // Recorro la lista de equipos que está cargada
-        for (Equipo eq : this.listaE) {
+        for (Equipo eq : this.getListaE()) {
             // Para cada equipo obtengo el valor del ID y lo comparo con el que
             // estoy buscando
             if (eq.getIdEquipo() == idEquipo) {
@@ -77,19 +77,28 @@ public class ListaEquipos {
        String datosEquipo;
        String vectorEquipo[];
        Equipo equipo;
+       int fila=0;
        try{
            Scanner sc = new Scanner(new File(this.nombreArchivo));
            sc.useDelimiter("\n");
-           while(sc.hasNext()){
+                
+               while(sc.hasNext()){
                datosEquipo=sc.next();
+               fila++;
+               if(fila==1){
+                   continue;
+               }
                vectorEquipo=datosEquipo.split(",");
-               equipo = new Equipo(Integer.parseInt(vectorEquipo[0]),vectorEquipo[1],vectorEquipo[2]);
-               this.listaE.add(equipo);
-           }
+               int id=Integer.parseInt(vectorEquipo[0]);
+               equipo = new Equipo(id,vectorEquipo[1],vectorEquipo[2]);
+               this.addEquipo(equipo);
+               }
+                    
        }
        catch(IOException ex){
            System.out.println("Error al abrir el archivo");
        }
+       
     }
     
 }

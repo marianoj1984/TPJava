@@ -70,11 +70,16 @@ public class ListaPartidos {
        String datosPartido;
        String vectorPartido[];
        Partido partido;
+       int fila=0;
        try{
            Scanner sc = new Scanner(new File(this.nombreArchivo));
            sc.useDelimiter("\n");
            while(sc.hasNext()){
                datosPartido=sc.next();
+               fila++;
+               if(fila==1){
+                   continue;
+               }
                vectorPartido=datosPartido.split(",");
                Equipo equipo1, equipo2;
                equipo1=listaEq.getEquipo(Integer.parseInt(vectorPartido[1]));

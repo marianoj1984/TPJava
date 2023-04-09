@@ -67,16 +67,24 @@ public class ListaParticipantes {
        String datosParticipante;
        String vectorParticipante[];
        Participante participante;
+       int fila=0;
        try{
            Scanner sc = new Scanner(new File(this.nombreArchivo));
            sc.useDelimiter("\n");
            while(sc.hasNext()){
+    
                datosParticipante=sc.next();
+               fila++;
+               if(fila==1){
+                   continue;
+               }              
                vectorParticipante=datosParticipante.split(",");
-               participante = new Participante(Integer.parseInt(vectorParticipante[0]),vectorParticipante[1]);
+               int id=Integer.parseInt(vectorParticipante[0]);
+               String nombre=vectorParticipante[1];
+               participante = new Participante(id,nombre);
                this.listaPart.add(participante);
-           }
-       }
+               }
+        }
        catch(IOException ex){
            System.out.println("Error al abrir el archivo");
        }
