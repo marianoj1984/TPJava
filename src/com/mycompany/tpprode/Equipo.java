@@ -1,5 +1,9 @@
 
 package com.mycompany.tpprode;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.*;
+import java.util.Scanner;
 
 public class Equipo {
     private int idEquipo;

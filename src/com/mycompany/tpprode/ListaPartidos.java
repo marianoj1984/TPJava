@@ -21,13 +21,14 @@ public class ListaPartidos {
         this.nombreArchivo = listaPartidos;
         this.listaEq=new ListaEquipos(listaEquipos);
         this.listaEq.cargarDeArchivo();
+        this.listaP=new ArrayList<>();
         this.cargarDeArchivo();
         
     }
 
     public ListaPartidos() {
         this.nombreArchivo="Partidos.csv";
-        this.listaP=new ArrayList<Partido>();   
+        this.listaP=new ArrayList<>();   
     }
 
     public String getNombreArchivo() {
@@ -76,16 +77,15 @@ public class ListaPartidos {
            sc.useDelimiter("\n");
            while(sc.hasNext()){
                datosPartido=sc.next();
-               fila++;
-               if(fila==1){
-                   continue;
-               }
                vectorPartido=datosPartido.split(",");
-               Equipo equipo1, equipo2;
-               equipo1=listaEq.getEquipo(Integer.parseInt(vectorPartido[1]));
-               equipo2=listaEq.getEquipo(Integer.parseInt(vectorPartido[2]));
-               partido = new Partido(Integer.parseInt(vectorPartido[0]), equipo1, equipo2,Integer.parseInt(vectorPartido[3]), Integer.parseInt(vectorPartido[4]));
-               this.listaP.add(partido);
+               if(fila>1){
+                    Equipo equipo1, equipo2;
+                    equipo1=listaEq.getEquipo(Integer.parseInt(vectorPartido[1]));
+                    equipo2=listaEq.getEquipo(Integer.parseInt(vectorPartido[2]));
+                    partido = new Partido(Integer.parseInt(vectorPartido[0]), equipo1, equipo2,Integer.parseInt(vectorPartido[3]), Integer.parseInt(vectorPartido[4]));
+                    this.listaP.add(partido);
+               }
+               fila++;
            }
        }
        catch(IOException ex){

@@ -13,16 +13,17 @@ import java.util.Scanner;
  */
 public class ListaEquipos {
     private String nombreArchivo;
-    private ArrayList<Equipo> listaE;
+    private List<Equipo> listaE;
 
     public ListaEquipos(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
+        this.listaE=new ArrayList<>();
         this.cargarDeArchivo();
     }
 
     public ListaEquipos() {
         this.nombreArchivo="equipos.Csv";
-        this.listaE=new ArrayList<Equipo>();
+        this.listaE=new ArrayList<>();
     }
 
     public String getNombreArchivo() {
@@ -33,8 +34,8 @@ public class ListaEquipos {
         this.nombreArchivo = nombreArchivo;
     }
 
-    public ArrayList<Equipo> getListaE() {
-        return this.listaE;
+    public List<Equipo> getListaE() {
+        return listaE;
     }
 
     public void setListaE(ArrayList<Equipo> listaE) {
@@ -55,6 +56,7 @@ public class ListaEquipos {
         // Inicialmente es null, ya que no he encontrado el equipo que 
         // buscaba todavía.
         Equipo encontrado = null;
+        
         // Recorro la lista de equipos que está cargada
         for (Equipo eq : this.getListaE()) {
             // Para cada equipo obtengo el valor del ID y lo comparo con el que
@@ -84,14 +86,13 @@ public class ListaEquipos {
                 
                while(sc.hasNext()){
                datosEquipo=sc.next();
+               if(fila>1){
+                   vectorEquipo=datosEquipo.split(",");
+                   int id=Integer.parseInt(vectorEquipo[0]);
+                   equipo = new Equipo(id,vectorEquipo[1],vectorEquipo[2]);
+                   this.listaE.add(equipo);
+               }    
                fila++;
-               if(fila==1){
-                   continue;
-               }
-               vectorEquipo=datosEquipo.split(",");
-               int id=Integer.parseInt(vectorEquipo[0]);
-               equipo = new Equipo(id,vectorEquipo[1],vectorEquipo[2]);
-               this.addEquipo(equipo);
                }
                     
        }

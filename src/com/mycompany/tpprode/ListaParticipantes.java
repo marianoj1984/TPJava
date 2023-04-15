@@ -17,12 +17,13 @@ public class ListaParticipantes {
 
     public ListaParticipantes(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
+        this.listaPart=new ArrayList<>();
         this.cargarDeArchivo();
     }
 
     public ListaParticipantes() {
         this.nombreArchivo="Participantes.csv";
-        this.listaPart=new ArrayList<Participante>();
+        this.listaPart=new ArrayList<>();
     }
 
     public String getNombreArchivo() {
@@ -73,16 +74,16 @@ public class ListaParticipantes {
            sc.useDelimiter("\n");
            while(sc.hasNext()){
     
-               datosParticipante=sc.next();
-               fila++;
-               if(fila==1){
-                   continue;
-               }              
+               datosParticipante=sc.next();             
                vectorParticipante=datosParticipante.split(",");
-               int id=Integer.parseInt(vectorParticipante[0]);
-               String nombre=vectorParticipante[1];
-               participante = new Participante(id,nombre);
-               this.listaPart.add(participante);
+               
+               if(fila>1){
+                    int id=Integer.parseInt(vectorParticipante[0]);
+                    String nombre=vectorParticipante[1];
+                    participante = new Participante(id,nombre);
+                    this.listaPart.add(participante);
+               }
+               fila++;
                }
         }
        catch(IOException ex){

@@ -27,12 +27,13 @@ public class ListaPronosticos {
         this.listaPa.cargarDeArchivo();
         this.listaPart= new ListaParticipantes(listaParticipantes);
         this.listaPart.cargarDeArchivo();
+        this.listaProno=new ArrayList<>();
         this.cargarDeArchivo();
     }
 
     public ListaPronosticos() {
         this.nombreArchivo="Pronosticos.csv";
-        this.listaProno=new ArrayList<Pronosticos>();
+        this.listaProno=new ArrayList<>();
     }
 
     public String getNombreArchivo() {
@@ -83,18 +84,17 @@ public class ListaPronosticos {
            sc.useDelimiter("\n");
            while(sc.hasNext()){
                datosPronostico=sc.next();
-               fila++;
-               if(fila==1){
-                   continue;
-               }
                vectorPronostico=datosPronostico.split(",");
-               //idPronistico   //id Participante   //idPartico     //idEquipo      //Resultado
-               //Participante part = listaPart.getParticipante(Integer.parseInt(vectorPronostico[1]));
-               Partido partido = listaPa.getPartido(Integer.parseInt(vectorPronostico[2]));
-               Equipo eq = listaEq.getEquipo(Integer.parseInt(vectorPronostico[3]));
-               char resultado=vectorPronostico[4].charAt(0);
-               pronostico = new Pronosticos(Integer.parseInt(vectorPronostico[0]),eq,partido,resultado);
-               this.listaProno.add(pronostico);
+               if(fila>1){
+                   //idPronistico   //id Participante   //idPartico     //idEquipo      //Resultado
+                    //Participante part = listaPart.getParticipante(Integer.parseInt(vectorPronostico[1]));
+                    Partido partido = listaPa.getPartido(Integer.parseInt(vectorPronostico[2]));
+                    Equipo eq = listaEq.getEquipo(Integer.parseInt(vectorPronostico[3]));
+                    char resultado=vectorPronostico[4].charAt(0);
+                    pronostico = new Pronosticos(Integer.parseInt(vectorPronostico[0]),eq,partido,resultado);
+                    this.listaProno.add(pronostico);
+               }
+               fila++;
            }
        }
        catch(IOException ex){

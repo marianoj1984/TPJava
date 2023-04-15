@@ -57,8 +57,8 @@ public class PronosticoDeportivo {
     
     public String listarEquipos() {
         String res="";
-        for (Equipo equipo : this.equipos.getListaE()) {
-            res += equipo.toString()+"\n";    
+        for (Equipo eq : this.equipos.getListaE()) {
+            res += eq.toString()+"\n";    
         }
         return res;
     }
